@@ -3,7 +3,7 @@ import cx from 'clsx';
 import * as React from 'react';
 import { Info } from 'react-feather';
 import { useTranslation } from 'react-i18next';
-import { FcAreaChart, FcDocument, FcGlobe, FcLink, FcRuler, FcSettings } from 'react-icons/fc';
+import { MdAreaChart, MdFilterAlt, MdLanguage, MdLink, MdList, MdSettings } from 'react-icons/md';
 import { useQuery } from 'react-query';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -13,17 +13,19 @@ import { connect } from '~/components/StateProvider';
 import { getClashAPIConfig } from '~/store/app';
 import { ClashAPIConfig } from '~/types';
 
+import s0 from './APIConfig.module.scss';
 import s from './SideBar.module.scss';
+import SvgYacd from './SvgYacd';
 
 type Props = { apiConfig: ClashAPIConfig };
 
 const icons = {
-  activity: FcAreaChart,
-  globe: FcGlobe,
-  command: FcRuler,
-  file: FcDocument,
-  settings: FcSettings,
-  link: FcLink,
+  activity: MdAreaChart,
+  globe: MdLanguage,
+  command: MdFilterAlt,
+  file: MdList,
+  settings: MdSettings,
+  link: MdLink,
 };
 
 const SideBarRow = React.memo(function SideBarRow({
@@ -97,7 +99,13 @@ function SideBar(props: Props) {
   );
   return (
     <div className={s.root}>
-      <div className={version.meta && version.premium ? s.logo_singbox : s.logo_meta} />
+      <div className={s.logoPlaceholder}>
+        <div className={s0.header}>
+          <div className={s0.icon}>
+            <SvgYacd width={90} height={90} stroke="var(--stroke)" />
+          </div>
+        </div>
+      </div>
       <div className={s.rows}>
         {pages.map(({ to, iconId, labelText }) => (
           <SideBarRow
